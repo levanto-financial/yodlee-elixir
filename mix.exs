@@ -29,7 +29,10 @@ defmodule Yodlee.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [{:httpoison, "~> 0.8.0" },
+      {:hackney, "~> 1.4.8" }, # not included in hex version of httpoison :(
+      {:poison, "~> 1.5"},
+      {:ex_doc, "~> 0.7", only: :dev}]
   end
 
     def package do
