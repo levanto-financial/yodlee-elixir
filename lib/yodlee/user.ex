@@ -1,7 +1,15 @@
 defmodule Yodlee.User do
-  @endpoint "/authenticate/coblogin"
+  @endpoint "/jsonsdk/UserRegistration"
 
-  def login(username, password) do
-    Yodlee.make_request("post", @endpoint, %{cobrandLogin: username, cobrandPassword: password})
+  def register3(username, password, email, cobSessionToken) do
+    Yodlee.make_request("post", "#{@endpoint}/register3", %{
+      cobSessionToken: cobSessionToken,
+      userCredentials: %{
+        loginName: username,
+        password: password,
+        objectInstanceType: "com.yodlee.ext.login.PasswordCredentials",
+        emailAddress: email
+      }
+    })
   end
 end

@@ -16,6 +16,11 @@ defmodule Yodlee.URI do
     end
   end
 
+  # def decode_query(string) do
+  #   components = String.split string, "&"
+  #   Enum.reduce
+  # end
+
   defp pair({key, value}) do
     cond do
       Enumerable.impl_for(value) ->
