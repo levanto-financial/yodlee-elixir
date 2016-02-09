@@ -1,6 +1,7 @@
-# Yodlee
+# Yodlee [![Build Status](https://travis-ci.org/levanto-financial/yodlee-elixir.svg?branch=master)](https://travis-ci.org/levanto-financial/yodlee-elixir)
 
-Yodlee Aggregation API for Elixir
+
+Yodlee Aggregation API for Elixir 
 
 ## Example Use
 
