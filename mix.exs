@@ -32,7 +32,8 @@ defmodule Yodlee.Mixfile do
     [{:httpoison, "~> 0.8.0" },
       {:hackney, "~> 1.4.8" }, # not included in hex version of httpoison :(
       {:poison, "~> 1.5"},
-      {:ex_doc, "~> 0.7", only: :dev}]
+      {:ex_doc, "~> 0.7", only: :dev},
+      {:mock, "~> 0.1.1", only: :test}]
   end
 
     def package do

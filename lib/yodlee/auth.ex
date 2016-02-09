@@ -18,6 +18,7 @@ defmodule Yodlee.Auth do
           e -> {:error, e}
         end
       {:ok, resp } ->
+        IO.inspect resp
         {:error, "Unexpected API response from coblogin"}
       {:error, err } ->
         {:error, err }
