@@ -1,6 +1,9 @@
 language: elixir
 elixir:
-  - 1.1.1
+- 1.1.1
 otp_release:
-  - 18.1
+- 18.1
 sudo: false
+notifications:
+  slack:
+    secure: BWLeAap288ImJSOC8jBV3nABuS73xuKwrpxXgjZfChvuZaP1pVk6xDTO6bxoqbAKdJKrYEXpS7/HY5upXII4nU7b7Nhu9RglahiM+QywU6hS2TC+yNgoKCZwqyhVcYcTY52m/N7lYRxHMUwdVdZ3iWYOqcyMFmQYUm1tHetcdyMg+h2dhJN08w6U4CORPRbVUFTsi1eJ8yEVWKPBfY5K329mjNJtciQ+rbW/p4hJLo8XI/YbI+o0ca7CvoD6+MJzbpRaAnkelFqfmUOyA/4r4Kp5crLIx79Jf1fmL+NjahbmhY8XeOONPA+NiutmxfRY/rMLz5S7sSMrxYGMwiQi2f7yVaz70TSgAHUv42YZvX8cH1dCENpq3HOEGeim21mpkH6dR3Uk7z5Hzb+jBx6Efkdb+Sy/MCtcMWIJbmdLEolY8gKVL4r5QPVuQ1pp99kPrcvtsLjoQWFCiOuYavBABHxXavDrPqxUroeybY3+5bQMsQ3xiNNq9LevMGKIyP4ECInqpBaFsJJQwzv0jLnPDOtNskxFL0p9Q2MSAj7fcCP5Fus0L83KsxMgIVtQC95fOOpL+OiWmMCcraZ6AZSYcachf+l/5Vc1jlxjB28s90EKaVj5D1EXGIS49d/Y++EgUX2uP8GSm/5zeEWMxnDLK/Mz8eTm1AdyMqT7sOMt4u8=
