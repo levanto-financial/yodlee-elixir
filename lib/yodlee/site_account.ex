@@ -8,11 +8,12 @@ defmodule Yodlee.SiteAccount do
     })
   end
 
-  def add(cobSessionToken, userSessionToken, site_id) do
+  def add(cobSessionToken, userSessionToken, site_id, credentialFields) do
     Yodlee.make_request("post", "#{@endpoint}/addSiteAccount1", %{
       cobSessionToken: cobSessionToken,
       userSessionToken: userSessionToken,
-      siteId: site_id
+      siteId: site_id,
+      credentialFields: credentialFields
     })
   end
 
