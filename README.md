@@ -98,6 +98,53 @@ end
 
 ```
 
+Or even something more complicated like adding a "site account" to the user
+
+```ex
+
+case Yodlee.Auth.run_as_cobrand_and_user(
+  System.get_env("COBRAND_USERNAME"),
+  System.get_env("COBRAND_PASSWORD"),
+  System.get_env("EXAMPLE_USER_LOGIN"),
+  System.get_env("EXAMPLE_USER_PASSWORD"),
+  fn cobrand_session_tok, user_session_tok -> 
+    
+    case Yodlee.SiteAccount.get_form(cobrand_session_tok, 16441) do
+      {:ok, site_form} ->
+        
+        # Ask user for data, to fill in form
+        form_data = Enum.map site_form["componentList"], fn c ->
+          x = IO.gets("#{c["displayName"]}: ") |> String.replace("\n", "")
+          %{value: x,
+            name: c["name"],
+            valueIdentifier: c["valueIdentifier"]
+          }
+        end
+
+        # Pass the filled in form to Yodlee
+        case Yodlee.SiteAccount.add(cobrand_session_tok, user_session_tok,
+          16441, # Site ID
+          hd(site_form["componentList"])["fieldInfoType"], # com.yodlee.common.FieldInfoSingle
+          form_data) do
+          {:ok, site_acct_info} -> site_acct_info
+          {:error, err} ->
+            raise "Error creating site account"
+        end
+
+      {:error, err} ->
+        raise "Error getting site form data"
+    end
+  end) do
+
+  {:ok, account} ->
+    IO.puts "New site account created! " <>
+      account["siteInfo"]["defaultDisplayName"] <> " " <>
+      to_string(account["siteAccountId"])
+    account
+  {:error, result} -> IO.inspect result
+end
+
+```
 
 ## Installation
 
@@ -106,7 +153,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   1. Add yodlee to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:yodlee, "~> 0.0.1"}]
+          [{:yodlee, "~> 0.0.7"}]
         end
 
   2. Ensure yodlee is started before your application:
