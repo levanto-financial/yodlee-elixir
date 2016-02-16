@@ -18,6 +18,27 @@ defmodule Yodlee.SiteAccount do
     })
   end
 
+  def remove(cobSessionToken, userSessionToken, memSiteAccId) do
+    Yodlee.make_request("post", "#{@endpoint}/removeSiteAccount", %{
+      cobSessionToken: cobSessionToken,
+      userSessionToken: userSessionToken,
+      memSiteAccId: memSiteAccId
+    })
+  end
+
+  def remove_all(cobSessionToken, userSessionToken) do
+    case all(cobSessionToken, userSessionToken) do
+      {:ok, site_accounts} ->
+        site_account_ids = Enum.map site_accounts, fn x -> x["siteAccountId"] end
+        Enum.each site_account_ids, fn id ->
+          remove(cobSessionToken, userSessionToken, id)
+        end
+        {:ok, []}
+      x ->
+        x
+    end
+  end
+
   def get_form(cobSessionToken, site_id) do
     Yodlee.make_request("post", "#{@endpoint}/getSiteLoginForm", %{
       cobSessionToken: cobSessionToken,
