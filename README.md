@@ -98,6 +98,74 @@ end
 
 ```
 
+Or getting container item summaries for everything available on the site
+
+```ex
+case Yodlee.Auth.run_as_cobrand_and_user(
+      System.get_env("COBRAND_USERNAME"),
+      System.get_env("COBRAND_PASSWORD"),
+      System.get_env("EXAMPLE_USER_LOGIN"),
+      System.get_env("EXAMPLE_USER_PASSWORD"),
+      fn cobrand_session_tok, user_session_tok -> 
+        {:ok, x} = Yodlee.SiteAccount.get_many(cobrand_session_tok, user_session_tok, [], %{"siteAccountFilter.itemSummaryRequired" => 2})
+        x
+      end) do
+
+  {:ok, data} ->
+    Enum.each data, fn d -> 
+      case d["siteRefreshInfo"]["code"] do
+        0 ->
+          IO.puts "Connected Site Account: #{d["siteInfo"]["defaultDisplayName"]}"
+          Enum.each d["itemSummary"], fn is -> 
+            IO.puts "  Site #{is["contentServiceInfo"]["siteDisplayName"]} - #{is["contentServiceInfo"]["containerInfo"]["containerName"]}"
+
+            Enum.each is["itemData"]["accounts"], fn ida ->
+              bal = case is["contentServiceInfo"]["containerInfo"]["containerName"] do 
+                "bank" -> ida["availableBalance"]["amount"]
+                "bills" -> ida["amountDue"]["amount"]
+                "credits" -> ida["runningBalance"]["amount"]
+                "insurance" -> hd(ida["insurancePolicys"])["premiumAmount"]["amount"]
+                "stocks" -> ida["totalAccountBalance"]["amount"]
+                "loans" -> hd(ida["loans"])["principalBalance"]["amount"]
+                "miles" -> "N/A"
+                _ ->
+                  IO.puts "Unknown container type: " <> is["contentServiceInfo"]["containerInfo"]["containerName"]
+                  IO.inspect ida 
+                  "???"
+              end
+              IO.puts "    #{ida["accountDisplayName"]["defaultNormalAccountName"]} (#{ida["accountNumber"]}): $#{bal}"
+
+            end 
+          end
+        801 ->
+          IO.puts "Pending Site Account:  #{d["siteInfo"]["defaultDisplayName"]}"
+        _ ->
+          IO.puts "Errored Site Account:  #{d["siteInfo"]["defaultDisplayName"]}"
+      end
+    end
+  {:error, result} ->
+    IO.inspect result
+end
+
+# Connected Site Account: Dag Site
+#   Site Dag Site - miles
+#     Dag Site - Rewards (): $N/A
+#   Site Dag Site - loans
+#     Dag Site - Loan - # (): $2.0e3
+#   Site Dag Site - stocks
+#     Dag Site - Investments - DAG INVESTMENT (xx5555): $1406732520.0
+#   Site Dag Site - insurance
+#     Dag Site - Insurance - # (): $5.0e3
+#   Site Dag Site - credits
+#     Dag Site - Credit Card - Super CD Plus (xxxx2334): $11756.88
+#   Site Dag Site - bills
+#     Dag Site - Bills - DAG BILLING (xx5555): $1.2e3
+#   Site Dag Site - bank
+#     Dag Site - Bank - TESTDATA (xxxx3xxx): $54.78
+#     Dag Site - Bank - TESTDATA1 (xxxx3xxx): $65454.78
+# Errored Site Account:  Dag Site
+```
+
 Or even something more complicated like adding a "site account" to the user
 
 ```ex

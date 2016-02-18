@@ -45,4 +45,17 @@ defmodule Yodlee.SiteAccount do
       siteId: site_id
     })
   end
+
+  def get_many(cobSessionToken, userSessionToken, site_account_ids \\ [], options \\ %{}) do
+    args = %{
+      cobSessionToken: cobSessionToken,
+      userSessionToken: userSessionToken
+    }
+    if length(site_account_ids) > 0 do
+      args = Map.merge(args, %{memSiteAccIds: site_account_ids})
+    end
+    args = Map.merge(args, options)
+
+    Yodlee.make_request("post", "#{@endpoint}/getSiteAccounts1", args)
+  end
 end
