@@ -1,11 +1,11 @@
-# Yodlee [![Build Status](https://travis-ci.org/levanto-financial/yodlee-elixir.svg?branch=master)](https://travis-ci.org/levanto-financial/yodlee-elixir)
+# Yodlee-Elixir [![Build Status](https://travis-ci.org/levanto-financial/yodlee-elixir.svg?branch=master)](https://travis-ci.org/levanto-financial/yodlee-elixir)
 
 
 Yodlee Aggregation API for Elixir 
 
 ## Example Use
 
-1. Setup your cobrand credentials, and run the main script
+**1)** Setup your cobrand credentials, and run the main script
 
 ```sh
 COBRAND_USERNAME=sbCobREPLACE_WITH_COBRAND_USERNAME \
@@ -16,7 +16,7 @@ iex -S mix run lib/yodlee.ex
 
 ```
 
-2. Play!
+**2)** Play!
 
 You can login as your registered cobrand, and then make other API calls that depend on that token
 ```ex
