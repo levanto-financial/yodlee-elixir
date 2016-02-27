@@ -214,6 +214,52 @@ end
 
 ```
 
+or getting a list of transactions
+
+```ex
+case Yodlee.Auth.run_as_cobrand_and_user(
+      System.get_env("COBRAND_USERNAME"),
+      System.get_env("COBRAND_PASSWORD"),
+      System.get_env("EXAMPLE_USER_LOGIN"),
+      System.get_env("EXAMPLE_USER_PASSWORD"),
+      fn c, u -> 
+        case Yodlee.TransactionSearch.search(c, u, %{
+          transactionSearchRequest: %{
+            containerType: "All",
+            lowerFetchLimit: 1,
+            higherFetchLimit: 1000,
+            resultRange: %{
+              startNumber: 1,
+              endNumber: 1000
+            },
+            searchFilter: %{
+              postDateRange: %{
+                fromDate: "01-01-2013",
+                toDate: "02-01-2016"
+              },
+              transactionSplitType: "ALL_TRANSACTION"
+            },
+            userInput: "a",
+            ignoreUserInput: true
+          }
+        }) do
+          {:ok, transactions} -> transactions["searchResult"]["transactions"]
+        end
+
+      end) do
+  {:ok, transactions} ->
+    Enum.each transactions, fn t -> 
+       IO.puts t["postDate"] <> "\t" <>
+        t["account"]["accountName"] <> "\t" <>
+        to_string(t["amount"]["amount"]) <> "\t" <>
+        t["description"]["description"]
+    end
+  {:error, result} -> IO.inspect result
+end
+
+```
+
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
