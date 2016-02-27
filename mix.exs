@@ -3,7 +3,7 @@ defmodule Yodlee.Mixfile do
 
   def project do
     [app: :yodlee,
-     version: "0.0.9",
+     version: "0.0.10",
      elixir: "~> 1.1",
      description: "Yodlee Aggregation API",
      package: package,
