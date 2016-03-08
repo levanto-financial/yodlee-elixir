@@ -93,16 +93,48 @@ end
 
 ```
 
+Or you could create and then immediately delete a user
+
+```ex
+
+case Yodlee.as_cob(
+  System.get_env("COBRAND_USERNAME"),
+  System.get_env("COBRAND_PASSWORD"), fn cob_tok ->
+
+    IO.puts "======== CREATE A USER ========"
+
+    {:ok, new_user} = Yodlee.User.create cob_tok, %{
+      "user" => %{
+        "loginName" => "mike-logina",
+        "password" => "aho12eoed12d$$Aa",
+        "email" => "test-1241nd12a@example.com"}}
+      
+
+
+    IO.puts "======== AND DELETE IT ========"
+
+    user_tok = new_user["user"]["session"]["userSession"]
+    Yodlee.User.delete cob_tok, user_tok
+
+    new_user
+  end) do
+  {:ok, result} ->
+    IO.inspect result
+  {:error, err} -> raise err
+end
+
+```
+
 ## API Coverage
 
 - [x] **get** - /{cobrandName}/v1/cobrand/publicKey
 - [x] **post** - /{cobrandName}/v1/cobrand/logout
 - [x] **post** - /{cobrandName}/v1/cobrand/login
-- [ ] **post** - /{cobrandName}/v1/user/register
+- [x] **post** - /{cobrandName}/v1/user/register
 - [ ] **get** - /{cobrandName}/v1/user
 - [ ] **get** - /{cobrandName}/v1/user/credentials/token
 - [ ] **post** - /{cobrandName}/v1/user/credentials
-- [ ] **delete** - /{cobrandName}/v1/user/unregister
+- [x] **delete** - /{cobrandName}/v1/user/unregister
 - [ ] **post** - /{cobrandName}/v1/user/samlRegister
 - [ ] **post** - /{cobrandName}/v1/user/samlLogin
 - [x] **post** - /{cobrandName}/v1/user/logout
