@@ -2,7 +2,7 @@ defmodule Yodlee.Handler do
   use HTTPoison.Base
   require Logger
 
-  @base Application.get_env(:yodlee, :api_base_url)
+  @base Application.get_env(:yodlee, :api_base_url) || "https://developer.api.yodlee.com/ysl/"
 
   def start(_type, _args) do
     start

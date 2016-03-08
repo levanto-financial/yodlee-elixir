@@ -2,7 +2,7 @@ defmodule Yodlee do
   use Application
   require Logger
 
-  @request_handler Application.get_env(:yodlee, :request_handler)
+  @request_handler Application.get_env(:yodlee, :request_handler) || Yodlee.Handler
 
   def start do
     @request_handler.start
