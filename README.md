@@ -1,7 +1,7 @@
 # Yodlee-Elixir [![Build Status](https://travis-ci.org/levanto-financial/yodlee-elixir.svg?branch=master)](https://travis-ci.org/levanto-financial/yodlee-elixir)
 
 
-Yodlee Aggregation API for Elixir 
+Yodlee YSL API for Elixir 
 
 ## Example Use
 
@@ -92,7 +92,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   1. Add yodlee to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:yodlee, "~> 0.0.9"}]
+          [{:yodlee, "~> 0.1.0"}]
         end
 
   2. Ensure yodlee is started before your application:
