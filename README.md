@@ -16,7 +16,16 @@ iex -S mix run lib/yodlee.ex
 
 ```
 
-**2)** Play!
+**2)** Configure the plugin for your app (optional)
+```ex
+config :yodlee,
+  # request_handler: Yodlee.Handler, # Good for testing w/o hitting the real API
+  api_base_url: "https://developer.api.yodlee.com/ysl/"
+```
+
+`api_base_url` defaults to `https://developer.api.yodlee.com/ysl/`
+
+**3)** Play!
 
 You can login as your registered cobrand, and then make other API calls that depend on that token
 ```ex
