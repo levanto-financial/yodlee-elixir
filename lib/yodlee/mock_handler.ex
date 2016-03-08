@@ -21,13 +21,13 @@ defmodule Yodlee.MockHandler do
   end
 
   def clear_mock_responses() do
-    Agent.get_and_update __MODULE__, fn set ->
+    Agent.get_and_update __MODULE__, fn _ ->
       d = HashDict.new
       {d, d}
     end
   end
 
-  def make_request(method, endpoint, body \\ [], headers \\ [], options \\ []) do
+  def make_request(method, endpoint, body \\ [], _headers \\ [], _options \\ []) do
     Agent.get __MODULE__, fn set ->
       method_ops = HashDict.fetch!(set, method)
       handler = HashDict.fetch!(method_ops, endpoint)
