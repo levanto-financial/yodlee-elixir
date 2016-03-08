@@ -1,7 +1,6 @@
-import Logger
-
 defmodule Yodlee do
   use Application
+  require Logger
 
   @request_handler Application.get_env(:yodlee, :request_handler)
 
@@ -17,7 +16,7 @@ defmodule Yodlee do
   def as_cob(cob_username, cob_password, x) do
     %{"session" => %{
       "cobSession" => tok}
-    } = case Yodlee.Cobrand.login(System.get_env("COBRAND_USERNAME"), System.get_env("COBRAND_PASSWORD")) do
+    } = case Yodlee.Cobrand.login(cob_username, cob_password) do
       {:ok, resp} -> resp
       err ->
         IO.inspect err
@@ -40,10 +39,11 @@ defmodule Yodlee do
   end
 
   def as_cob_and_user(cob_username, cob_password, username, password, x) do
-    %{"session" => %{
-      "cobSession" => tok}
-    } = Yodlee.Cobrand.login! System.get_env("COBRAND_USERNAME"), System.get_env("COBRAND_PASSWORD")
-    %{"user" => %{"session" => %{"userSession" => user_tok}}} = Yodlee.User.login! tok, System.get_env("EXAMPLE_USER_LOGIN"), System.get_env("EXAMPLE_USER_PASSWORD")
+    %{"session" => %{ "cobSession" => tok}}
+      = Yodlee.Cobrand.login! cob_username, cob_password
+    %{"user" => %{
+      "session" => %{ "userSession" => user_tok }
+    }} = Yodlee.User.login! tok, username, password
     try do
       case x.({tok, user_tok}) do
         {:ok, res} -> {:ok, res}

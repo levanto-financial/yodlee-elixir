@@ -1,7 +1,6 @@
-import Logger
-
 defmodule Yodlee.Handler do
   use HTTPoison.Base
+  require Logger
 
   @base Application.get_env(:yodlee, :api_base_url)
 
@@ -34,7 +33,7 @@ defmodule Yodlee.Handler do
         response_body = case response.body do
           "" -> %{}
           nil -> %{}
-          x -> Poison.decode!(response.body)
+          x -> Poison.decode!(x)
         end
         {:ok, response_body}
       {:error, response} ->
