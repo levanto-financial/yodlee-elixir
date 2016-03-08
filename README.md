@@ -86,9 +86,9 @@ end
 
 ## API Coverage
 
-- [ ] **get** - /{cobrandName}/v1/cobrand/publicKey
-- [ ] **post** - /{cobrandName}/v1/cobrand/logout
-- [ ] **post** - /{cobrandName}/v1/cobrand/login
+- [x] **get** - /{cobrandName}/v1/cobrand/publicKey
+- [x] **post** - /{cobrandName}/v1/cobrand/logout
+- [x] **post** - /{cobrandName}/v1/cobrand/login
 - [ ] **post** - /{cobrandName}/v1/user/register
 - [ ] **get** - /{cobrandName}/v1/user
 - [ ] **get** - /{cobrandName}/v1/user/credentials/token
@@ -96,8 +96,8 @@ end
 - [ ] **delete** - /{cobrandName}/v1/user/unregister
 - [ ] **post** - /{cobrandName}/v1/user/samlRegister
 - [ ] **post** - /{cobrandName}/v1/user/samlLogin
-- [ ] **post** - /{cobrandName}/v1/user/logout
-- [ ] **post** - /{cobrandName}/v1/user/login
+- [x] **post** - /{cobrandName}/v1/user/logout
+- [x] **post** - /{cobrandName}/v1/user/login
 - [ ] **get** - /{cobrandName}/v1/accounts/{accountId}
 - [ ] **post** - /{cobrandName}/v1/accounts/{accountId}
 - [ ] **delete** - /{cobrandName}/v1/accounts/{accountId}
@@ -111,7 +111,7 @@ end
 - [ ] **put** - /{cobrandName}/v1/providers/{providerAccountId}
 - [ ] **get** - /{cobrandName}/v1/providers/token
 - [ ] **get** - /{cobrandName}/v1/providers/{providerId}
-- [ ] **get** - /{cobrandName}/v1/providers
+- [x] **get** - /{cobrandName}/v1/providers
 - [ ] **get** - /{cobrandName}/v1/transactions
 - [ ] **get** - /{cobrandName}/v1/transactions/transactionCategoryList
 - [ ] **post** - /{cobrandName}/v1/transactions/{transactionId}
