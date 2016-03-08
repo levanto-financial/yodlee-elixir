@@ -84,9 +84,14 @@ defmodule Yodlee do
     end
   end
 
-  def make_authenticated_request(cob_session_tok, method, endpoint, body \\ [], headers \\ [], options \\ []) do
+  def make_authenticated_request(creds, method, endpoint, body \\ [], headers \\ [], options \\ []) do
+    auth_token = case creds do
+      {cob, usr} -> "{cobSession=#{cob}, userSession=#{usr}}"
+      cob -> "{cobSession=#{cob}}"
+    end
+
     complete_headers = List.flatten(headers, [
-      "Authorization": "{cobSession=#{cob_session_tok}}"
+      "Authorization": auth_token
     ])
     make_request(method, endpoint, body, complete_headers, options)
   end
