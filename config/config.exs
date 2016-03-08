@@ -4,7 +4,7 @@ use Mix.Config
 
 config :yodlee,
   request_handler: Yodlee.Handler,
-  api_base_url: "https://rest.developer.yodlee.com/services/srest/restserver/v1.0"
+  api_base_url: "https://developer.api.yodlee.com/ysl/"
 
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this

@@ -21,13 +21,11 @@ iex -S mix run lib/yodlee.ex
 You can login as your registered cobrand, and then make other API calls that depend on that token
 ```ex
 
-case Yodlee.Auth.run_as_cobrand(
+case Yodlee.as_cob(
       System.get_env("COBRAND_USERNAME"),
       System.get_env("COBRAND_PASSWORD"),
       fn session_token -> 
-
         "Your session token is #{session_token}"
-
       end) do
   {:ok, result} -> IO.puts "Result: #{result}"
   {:error, result} -> IO.inspect result
@@ -40,21 +38,20 @@ end
 You may also login as a user associated with your cobrand, to get the user session token
 
 ```ex
-case Yodlee.Auth.run_as_cobrand_and_user(
-      System.get_env("COBRAND_USERNAME"),
-      System.get_env("COBRAND_PASSWORD"),
-      System.get_env("EXAMPLE_USER_LOGIN"),
-      System.get_env("EXAMPLE_USER_PASSWORD"),
-      fn cobrand_session_tok, user_session_tok -> 
-
-        "Your user token is #{user_session_tok}"
-
-      end) do
-  {:ok, result} -> IO.puts "Result: #{result}"
-  {:error, result} -> IO.inspect result
+r = case Yodlee.as_cob_and_user(
+  System.get_env("COBRAND_USERNAME"),
+  System.get_env("COBRAND_PASSWORD"),
+  System.get_env("EXAMPLE_USER_LOGIN"),
+  System.get_env("EXAMPLE_USER_PASSWORD"), fn {cob_tok, user_tok} ->
+    "User Token: #{user_tok}"
+  end) do
+  {:ok, result} -> result
+  {:error, err} -> raise err
 end
 
-# Result: Your user token is 08062qdwhiqwd......ea9c
+IO.inspect r
+
+# User Token: 080620198a32...12e09
 
 ```
 
@@ -62,39 +59,28 @@ And then user that user session token to do something like search for banking in
 
 ```ex
 
-case Yodlee.Auth.run_as_cobrand_and_user(
-      System.get_env("COBRAND_USERNAME"),
-      System.get_env("COBRAND_PASSWORD"),
-      System.get_env("EXAMPLE_USER_LOGIN"),
-      System.get_env("EXAMPLE_USER_PASSWORD"),
-      fn cobrand_session_tok, user_session_tok -> 
-        case Yodlee.Site.search(cobrand_session_tok, user_session_tok, "PNC") do
-          {:ok, sites} ->
-            Enum.map sites, fn site -> 
-              "#{site["defaultOrgDisplayName"]} - #{site["defaultDisplayName"]}"
-            end
-        end
-
-      end) do
-
-  {:ok, sites} ->
-    IO.puts "Found #{Enum.count(sites)} sites"
-    Enum.each sites, fn site -> IO.puts site end      
-
-  {:error, result} -> IO.inspect result
+case Yodlee.as_cob(
+  System.get_env("COBRAND_USERNAME"),
+  System.get_env("COBRAND_PASSWORD"), fn cob_tok ->
+    Yodlee.Provider.search(cob_tok, %{"name" => "Star One"})
+  end) do
+  {:ok, result} ->
+    Enum.each result["provider"], fn p -> 
+      IO.puts p["name"]
+    end
+  {:error, err} -> raise err
 end
 
-# Found 10 sites
-# Hewitt Management Company - PNC (My Benefits Access)
-# PNC Bank - PNC Bank
-# National City - PNC Bank (Elan) - Credit Cards
-# National City - PNC Bank (Hewitt)
-# National City - PNC Bank (Small Business)
-# Provident Bank - PNC Bank (formerly Provident Card (OH))
-# PNC Bank - PNC Bank Small Business (Account View)
-# National City - PNC Home Equity Online
-# National City - PNC Mortgage
-# National City - PNC Vested Interest (Participant Login)
+# Star One FCU
+# STAR Financial Bank
+# Five Star Bank (NY)
+# CENTRAL STAR CU
+# Lone Star CU
+# Star Harbor FCU - Investments
+# Lone Star National Bank
+# STAR CU - Investments
+# Five Star Bank (CA)
+# .......
 
 ```
 

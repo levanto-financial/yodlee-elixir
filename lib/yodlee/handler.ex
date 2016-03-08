@@ -15,7 +15,7 @@ defmodule Yodlee.Handler do
   end
 
   def request(method, endpoint, body, headers, options) do
-    Logger.info "#{method} #{endpoint}"
+    Logger.info "#{method} #{@base}#{endpoint}"
     super(method, endpoint, body, headers, options)
   end
 
@@ -28,13 +28,17 @@ defmodule Yodlee.Handler do
     rh = req_headers
       |> Dict.merge(headers)
       |> Dict.to_list
-    case request(method, endpoint, rb, rh, options) do
-      {:ok, response} ->
-        {:ok, Poison.decode!(response.body)}
 
+    case request(method, endpoint, rb, rh, List.flatten(options, [timeout: 20000])) do
+      {:ok, response} ->
+        response_body = case response.body do
+          "" -> %{}
+          nil -> %{}
+          x -> Poison.decode!(response.body)
+        end
+        {:ok, response_body}
       {:error, response} ->
         {:error, response}
-
     end
   end
 end
