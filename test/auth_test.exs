@@ -4,7 +4,7 @@ defmodule YodleeAuthTest do
   doctest Yodlee.Cobrand
 
   test "successful cobrand login" do
-    Yodlee.MockHandler.add_mock_response "post", "restserver/v1/cobrand/login", fn _ ->
+    Yodlee.MockHandler.add_mock_response "post", "#{Yodlee.default_cobrand_name}/v1/cobrand/login", fn _ ->
       {:ok, %{
         "applicationId" => "3A4CAE9B71A1CCD7FF41F51006E9ED00",
         "cobrandId" => 1111,
