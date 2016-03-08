@@ -35,5 +35,4 @@ defmodule Yodlee.MockHandler do
     end
   end
 
-
 end
