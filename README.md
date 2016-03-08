@@ -177,7 +177,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   1. Add yodlee to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:yodlee, "~> 0.1.1"}]
+          [{:yodlee, "~> 0.1.3"}]
         end
 
   2. Ensure yodlee is started before your application:
