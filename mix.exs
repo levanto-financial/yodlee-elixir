@@ -3,9 +3,9 @@ defmodule Yodlee.Mixfile do
 
   def project do
     [app: :yodlee,
-     version: "0.1.0",
+     version: "0.1.1",
      elixir: "~> 1.1",
-     description: "Yodlee Aggregation API",
+     description: "Yodlee API",
      package: package,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,

@@ -3,7 +3,7 @@
 use Mix.Config
 
 config :yodlee,
-  request_handler: Yodlee.Handler,
+  # request_handler: Yodlee.Handler, # Good for testing w/o hitting the real API
   api_base_url: "https://developer.api.yodlee.com/ysl/"
 
 # This configuration is loaded before any dependency and is restricted
