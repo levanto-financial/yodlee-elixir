@@ -84,6 +84,50 @@ end
 
 ```
 
+## API Coverage
+
+- [ ] **get** - /{cobrandName}/v1/cobrand/publicKey
+- [ ] **post** - /{cobrandName}/v1/cobrand/logout
+- [ ] **post** - /{cobrandName}/v1/cobrand/login
+- [ ] **post** - /{cobrandName}/v1/user/register
+- [ ] **get** - /{cobrandName}/v1/user
+- [ ] **get** - /{cobrandName}/v1/user/credentials/token
+- [ ] **post** - /{cobrandName}/v1/user/credentials
+- [ ] **delete** - /{cobrandName}/v1/user/unregister
+- [ ] **post** - /{cobrandName}/v1/user/samlRegister
+- [ ] **post** - /{cobrandName}/v1/user/samlLogin
+- [ ] **post** - /{cobrandName}/v1/user/logout
+- [ ] **post** - /{cobrandName}/v1/user/login
+- [ ] **get** - /{cobrandName}/v1/accounts/{accountId}
+- [ ] **post** - /{cobrandName}/v1/accounts/{accountId}
+- [ ] **delete** - /{cobrandName}/v1/accounts/{accountId}
+- [ ] **get** - /{cobrandName}/v1/accounts/investmentPlan/investmentOptions
+- [ ] **get** - /{cobrandName}/v1/accounts/historicalBalances
+- [ ] **get** - /{cobrandName}/v1/accounts
+- [ ] **get** - /{cobrandName}/v1/holdings/holdingTypeList
+- [ ] **get** - /{cobrandName}/v1/holdings/assetClassificationList
+- [ ] **get** - /{cobrandName}/v1/holdings
+- [ ] **post** - /{cobrandName}/v1/providers/{providerId}
+- [ ] **put** - /{cobrandName}/v1/providers/{providerAccountId}
+- [ ] **get** - /{cobrandName}/v1/providers/token
+- [ ] **get** - /{cobrandName}/v1/providers/{providerId}
+- [ ] **get** - /{cobrandName}/v1/providers
+- [ ] **get** - /{cobrandName}/v1/transactions
+- [ ] **get** - /{cobrandName}/v1/transactions/transactionCategoryList
+- [ ] **post** - /{cobrandName}/v1/transactions/{transactionId}
+- [ ] **get** - /{cobrandName}/v1/transactions/categories/rules
+- [ ] **post** - /{cobrandName}/v1/transactions/categories/rules
+- [ ] **put** - /{cobrandName}/v1/transactions/categories/rules/{ruleId}
+- [ ] **delete** - /{cobrandName}/v1/transactions/categories/rules/{ruleId}
+- [ ] **post** - /{cobrandName}/v1/transactions/categories/rules/{ruleId}
+- [ ] **post** - /{cobrandName}/v1/transactions/categories/rules
+- [ ] **get** - /{cobrandName}/v1/transactions/count
+- [ ] **get** - /{cobrandName}/v1/statements
+- [ ] **get** - /{cobrandName}/v1/derived/holdingSummary
+- [ ] **get** - /{cobrandName}/v1/derived/networth
+- [ ] **post** - /{cobrandName}/v1/refresh
+- [ ] **get** - /{cobrandName}/v1/refresh
+- [ ] **get** - /{cobrandName}/v1/refresh/{providerAccountId}
 
 ## Installation
 
