@@ -8,13 +8,18 @@ defmodule Yodlee.Handler do
     start
   end
 
-  def req_headers() do
+  def req_headers(mode \\ :form) do
+    content_type = case mode do
+      :form -> "application/x-www-form-urlencoded"
+      :json -> "application/json"
+    end
+
     HashDict.new
-      |> Dict.put("Content-Type",  "application/x-www-form-urlencoded")
+      |> Dict.put("Content-Type",  content_type)
   end
 
   def request(method, endpoint, body, headers, options) do
-    Logger.info "#{method} #{@base}#{endpoint}"
+    Logger.debug fn -> "#{String.upcase method}\t#{endpoint}" end
     super(method, endpoint, body, headers, options)
   end
 
@@ -22,9 +27,13 @@ defmodule Yodlee.Handler do
     @base <> endpoint
   end
 
-  def make_request(method, endpoint, body \\ [], headers \\ [], options \\ []) do
-    rb = Yodlee.URI.encode_query(body)
-    rh = req_headers
+  def make_request(method, endpoint, body \\ [], headers \\ [], options \\ [], request_mode \\ :form) do
+    rb = case request_mode do
+      :form -> Yodlee.URI.encode_query(body)
+      :json -> Poison.encode!(body)
+    end
+
+    rh = req_headers(request_mode)
       |> Dict.merge(headers)
       |> Dict.to_list
 
@@ -35,9 +44,14 @@ defmodule Yodlee.Handler do
           nil -> %{}
           x -> Poison.decode!(x)
         end
-        {:ok, response_body}
-      {:error, response} ->
-        {:error, response}
+
+        cond do
+          response.status_code >= 400 ->
+            x = response_body |> Map.put("status_code", response.status_code)
+            {:error, x}
+          true -> {:ok, response_body}
+        end
+      {:error, response} -> {:error, response}
     end
   end
 end

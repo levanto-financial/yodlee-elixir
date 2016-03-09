@@ -1,14 +1,25 @@
 defmodule Yodlee.User do
 
-  def login(cob_session_token, user_login, user_password, cobrand_name \\ Yodlee.default_cobrand_name) do
-    Yodlee.make_authenticated_request(cob_session_token, "post", "#{cobrand_name}/v1/user/login", %{
+  def login(creds, user_login, user_password, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.make_authenticated_request(creds, "post", "#{cobrand_name}/v1/user/login", %{
       "loginName" => user_login,
       "password" => user_password
     })
   end
-  def login!(cob_session_token, user_login, user_password, cobrand_name \\ Yodlee.default_cobrand_name) do
-    {:ok, res} = login(cob_session_token, user_login, user_password, cobrand_name)
-    res
+  def login!(creds, user_login, user_password, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.throw_on_fail fn ->
+      login(creds, user_login, user_password, cobrand_name)
+    end
+  end
+
+  def logout(creds, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.make_authenticated_request(creds, "post", "#{cobrand_name}/v1/user/logout")
+  end
+
+  def logout!(creds, user_login, user_password, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.throw_on_fail fn ->
+      logout(creds, cobrand_name)
+    end
   end
 
   # Returns:
@@ -27,13 +38,35 @@ defmodule Yodlee.User do
   #     }
   #   }
   # }
-  def create(cob_session_token, params, cobrand_name \\ Yodlee.default_cobrand_name) do
-    Yodlee.make_authenticated_request(cob_session_token, "post", "#{cobrand_name}/v1/user/register", %{
+  def create(creds, params, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.make_authenticated_request(creds, "post", "#{cobrand_name}/v1/user/register", %{
       "registerParam" => Poison.encode!(params)
     })
   end
-
-  def delete(cob_session_token, user_session_token, cobrand_name \\ Yodlee.default_cobrand_name) do
-    Yodlee.make_authenticated_request({cob_session_token, user_session_token}, "delete", "#{cobrand_name}/v1/user/unregister")
+  def create!(creds, params, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.throw_on_fail fn ->
+      create(creds, params, cobrand_name)
+    end
   end
+
+  def delete(creds, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.make_authenticated_request(creds, "delete", "#{cobrand_name}/v1/user/unregister")
+  end
+
+  def delete!(creds, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.throw_on_fail fn ->
+      delete(creds, cobrand_name)
+    end
+  end
+
+  def info(creds, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.make_authenticated_request(creds, "get", "#{cobrand_name}/v1/user")
+  end
+
+  def info!(creds, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.throw_on_fail fn ->
+      info(creds, cobrand_name)
+    end
+  end
+
 end

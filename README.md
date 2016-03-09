@@ -148,7 +148,7 @@ end
 - [ ] **get** - /{cobrandName}/v1/holdings/holdingTypeList
 - [ ] **get** - /{cobrandName}/v1/holdings/assetClassificationList
 - [ ] **get** - /{cobrandName}/v1/holdings
-- [ ] **post** - /{cobrandName}/v1/providers/{providerId}
+- [x] **post** - /{cobrandName}/v1/providers/{providerId}
 - [ ] **put** - /{cobrandName}/v1/providers/{providerAccountId}
 - [ ] **get** - /{cobrandName}/v1/providers/token
 - [ ] **get** - /{cobrandName}/v1/providers/{providerId}
