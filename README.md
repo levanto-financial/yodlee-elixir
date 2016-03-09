@@ -139,12 +139,12 @@ end
 - [ ] **post** - /{cobrandName}/v1/user/samlLogin
 - [x] **post** - /{cobrandName}/v1/user/logout
 - [x] **post** - /{cobrandName}/v1/user/login
-- [ ] **get** - /{cobrandName}/v1/accounts/{accountId}
+- [x] **get** - /{cobrandName}/v1/accounts/{accountId}
 - [ ] **post** - /{cobrandName}/v1/accounts/{accountId}
-- [ ] **delete** - /{cobrandName}/v1/accounts/{accountId}
+- [x] **delete** - /{cobrandName}/v1/accounts/{accountId}
 - [ ] **get** - /{cobrandName}/v1/accounts/investmentPlan/investmentOptions
 - [ ] **get** - /{cobrandName}/v1/accounts/historicalBalances
-- [ ] **get** - /{cobrandName}/v1/accounts
+- [x] **get** - /{cobrandName}/v1/accounts
 - [ ] **get** - /{cobrandName}/v1/holdings/holdingTypeList
 - [ ] **get** - /{cobrandName}/v1/holdings/assetClassificationList
 - [ ] **get** - /{cobrandName}/v1/holdings
@@ -166,9 +166,9 @@ end
 - [ ] **get** - /{cobrandName}/v1/statements
 - [ ] **get** - /{cobrandName}/v1/derived/holdingSummary
 - [ ] **get** - /{cobrandName}/v1/derived/networth
-- [ ] **post** - /{cobrandName}/v1/refresh
-- [ ] **get** - /{cobrandName}/v1/refresh
-- [ ] **get** - /{cobrandName}/v1/refresh/{providerAccountId}
+- [x] **post** - /{cobrandName}/v1/refresh
+- [x] **get** - /{cobrandName}/v1/refresh
+- [x] **get** - /{cobrandName}/v1/refresh/{providerAccountId}
 
 ## Installation
 
@@ -177,7 +177,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   1. Add yodlee to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:yodlee, "~> 0.1.3"}]
+          [{:yodlee, "~> 0.1.4"}]
         end
 
   2. Ensure yodlee is started before your application:
