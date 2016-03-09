@@ -4,6 +4,7 @@ use Mix.Config
 
 config :yodlee,
   # request_handler: Yodlee.Handler, # Good for testing w/o hitting the real API
+  # default_cobrand_name: "restserver",
   api_base_url: "https://developer.api.yodlee.com/ysl/"
 
 # This configuration is loaded before any dependency and is restricted

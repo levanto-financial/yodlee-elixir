@@ -1,13 +1,33 @@
 defmodule Yodlee.Provider do
 
-  def search(cob_session_token, name, cobrand_name \\ Yodlee.default_cobrand_name) do
-    body = %{"name" => name}
-    Yodlee.make_authenticated_request(cob_session_token, "get", "#{cobrand_name}/v1/providers", body)
+  def search(creds, name, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.make_authenticated_request(creds, "get", "#{cobrand_name}/v1/providers", %{"name" => name})
   end
 
-  defp search_by_params(cob_session_token, %{"skip" => skip, "top" => top}, cobrand_name \\ Yodlee.default_cobrand_name) do
-    body =  %{"skip" => skip || 0, "top" => top || 500}
-    Yodlee.make_authenticated_request(cob_session_token, "get", "#{cobrand_name}/v1/providers", body)
+  def search!(creds, name, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.throw_on_fail fn ->
+      search(creds, name, cobrand_name)
+    end
   end
 
+  def get(creds, provider_id, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.make_authenticated_request(creds, "get", "#{cobrand_name}/v1/providers/#{provider_id}")
+  end
+
+  def get!(creds, provider_id, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.throw_on_fail fn ->
+      get(creds, provider_id, cobrand_name)
+    end
+  end
+
+  def create_account(creds, provider_id, params, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.make_authenticated_request(creds,
+      "post", "#{cobrand_name}/v1/providers/#{provider_id}", params, [], [], :json)
+  end
+
+  def create_account!(creds, provider_id, params, cobrand_name \\ Yodlee.default_cobrand_name) do
+    Yodlee.throw_on_fail fn ->
+      create_account(creds, provider_id, params, cobrand_name)
+    end
+  end
 end
